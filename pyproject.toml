@@ -1,0 +1,110 @@
+[project]
+name = "zh-tts"
+version = "0.0.1"
+description = "Command-line interface for synthesizing Chinese texts into speech."
+readme = "README.md"
+requires-python = ">=3.8, <3.11"
+license = { text = "MIT" }
+authors = [{ name = "Stefan Taubert", email = "pypi@stefantaubert.com" }]
+maintainers = [{ name = "Stefan Taubert", email = "pypi@stefantaubert.com" }]
+keywords = [
+  "Text-to-speech",
+  "Speech synthesis",
+  "praat",
+  "TextGrid",
+  "Utils",
+  "Language",
+  "Linguistics",
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Operating System :: OS Independent",
+  "Operating System :: MacOS",
+  "Operating System :: POSIX",
+  "Operating System :: POSIX :: BSD",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Unix",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+  "numpy>=1.18.5",
+  "scipy>=1.8.0",
+  "tqdm>=4.63.0",
+  "TextGrid>=1.5",
+  "pandas>=1.4.0",
+  "ordered_set>=4.1.0",
+  "matplotlib>=3.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/stefantaubert/zh-tts"
+Issues = "https://github.com/stefantaubert/zh-tts/issues"
+
+[project.scripts]
+zh-tts = "zh_tts_cli.cli:run_prod"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = [
+  "zh_tts",
+  "zh_tts.*",
+  "zh_tts_cli",
+  "zh_tts_cli.*",
+  "zh_tts_tests",
+  "zh_tts_tests.*",
+  "zh_tts_cli_tests",
+  "zh_tts_cli_tests.*",
+]
+exclude = ["zh_tts_debug", "zh_tts_cli_debug", "zh_tts_old"]
+namespaces = true
+
+[tool.pytest.ini_options]
+log_cli = true
+log_level = "DEBUG"
+testpaths = ["src/zh_tts_tests", "src/zh_tts_cli_tests"]
+
+[tool.autopep8]
+indent-size = 2
+ignore = ["E121"]
+max_line_length = 100
+
+[tool.isort]
+line_length = 100
+indent = 2
+known_first_party = ["zh_tts", "zh_tts_cli"]
+known_third_party = [
+  "scipy",
+  "numpy",
+  "tqdm",
+  "TextGrid",
+  "pandas",
+  "ordered_set",
+  "matplotlib",
+  "pronunciation_dictionary",
+]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py{38,39,310}
+isolated_build = True
+
+[testenv]
+deps = 
+  pytest
+commands = 
+  pytest
+  zh-tts-cli
+  zh-tts-cli -v
+  zh-tts-cli -h
+"""
+
+[build-system]
+requires = ["setuptools >= 40.9.0", "wheel"]
+build-backend = "setuptools.build_meta"

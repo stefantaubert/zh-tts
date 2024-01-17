@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: zh-tts
+abstract: Command-line interface for synthesizing Chinese texts into speech.
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - email: github@stefantaubert.com
+    given-names: Stefan
+    family-names: Taubert
+    affiliation: Chemnitz University of Technology
+    orcid: 'https://orcid.org/0000-0002-4932-2874'
+    website: 'https://stefantaubert.com/'
+version: 0.0.1
+date-released: 2024-01-10
+license: MIT
+url: https://github.com/stefantaubert/zh-tts
+doi: 10.5281/zenodo.10479347

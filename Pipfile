@@ -1,0 +1,30 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+zh-tts = {editable = true, path = "."}
+autopep8 = "*"
+pylint = "*"
+pycodestyle = "*"
+isort = "*"
+rope = "*"
+pytest = "*"
+autoflake = "*"
+twine = "*"
+build = "*"
+wget = "*"
+
+[packages]
+scipy = ">=1.8.0"
+numpy = ">=1.18.5"
+tqdm = ">=4.63.0"
+TextGrid = ">=1.5"
+pandas = ">=1.4.0"
+ordered-set = ">=4.1.0"
+matplotlib = ">=3.5.0"
+ffmpy = "*"
+
+[requires]
+python_version = "3.10"

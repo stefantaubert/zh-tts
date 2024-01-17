@@ -23,19 +23,16 @@ from pinyin_to_ipa import pinyin_to_ipa
 from pronunciation_dictionary import (DeserializationOptions, MultiprocessingOptions,
                                       PronunciationDict, SerializationOptions, get_phoneme_set,
                                       load_dict, save_dict)
-from pronunciation_dictionary_utils import (merge_dictionaries, replace_symbols_in_pronunciations,
-                                            select_single_pronunciation)
+from pronunciation_dictionary_utils import merge_dictionaries, select_single_pronunciation
 from pronunciation_dictionary_utils_cli.pronunciations_map_symbols_json import \
   identify_and_apply_mappings
 from pypinyin import Style
 from tacotron import Synthesizer as TacotronSynthesizer
-from tacotron import get_speaker_mapping
 from tacotron_cli import *
 from tqdm import tqdm
 from txt_utils_cli import extract_vocabulary_from_text
 from txt_utils_cli.replacement import replace_text
 from txt_utils_cli.transcription import transcribe_text_using_dict
-from unidecode import unidecode_expect_ascii
 from waveglow import CheckpointWaveglow
 from waveglow import Synthesizer as WaveglowSynthesizer
 from waveglow import convert_glow_files, float_to_wav, normalize_wav, try_copy_to
@@ -43,6 +40,10 @@ from waveglow_cli import download_pretrained_model
 
 from zh_tts_cli.cn_tn import TextNorm
 from zh_tts_cli.types import ExecutionResult
+
+SPEAKER_DICT_ZIP = "https://zenodo.org/records/7528596/files/pronunciations-narrow-speakers.zip"
+SPEAKERS_DICT = "https://zenodo.org/records/7528596/files/pronunciations-narrow.dict"
+TACO_CKP = "https://zenodo.org/records/10209990/files/103500.pt"
 
 
 def get_device():
@@ -61,11 +62,6 @@ def init_synthesize_eng_parser(parser: ArgumentParser) -> Callable[[str, str], N
 def synthesize_ns(ns: Namespace, logger: Logger, flogger: Logger) -> ExecutionResult:
   text = cast(str, ns.input)
   synthesize(text, "Chinese", logger, flogger)
-
-
-SPEAKER_DICT_ZIP = "https://zenodo.org/records/7528596/files/pronunciations-narrow-speakers.zip"
-SPEAKERS_DICT = "https://zenodo.org/records/7528596/files/pronunciations-narrow.dict"
-TACO_CKP = "https://zenodo.org/records/10209990/files/103500.pt"
 
 
 def normalize_chn_text(text: str) -> str:

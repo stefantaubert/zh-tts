@@ -1,5 +1,4 @@
-
-from zh_tts_cli.main import segment_words
+from zh_tts.transcriber import segment_words
 
 
 def test_component():

@@ -5,6 +5,8 @@ from functools import partial
 from pathlib import Path
 from typing import Callable, List, Optional, TypeVar
 
+import torch
+
 T = TypeVar("T")
 
 
@@ -13,6 +15,24 @@ class ConvertToSetAction(argparse._StoreAction):
     if values is not None:
       values = set(values)
     super().__call__(parser, namespace, values, option_string)
+
+
+def parse_device(value: str) -> torch.device:
+  try:
+    device = torch.device(value)
+  except Exception as ex:
+    raise ArgumentTypeError("Device was not found!")
+  return device
+
+
+def get_torch_devices():
+  yield "cpu"
+  cuda_count = torch.cuda.device_count()
+  if cuda_count == 1:
+    yield "cuda"
+  else:
+    for i in cuda_count:
+      yield f"cuda:{i}"
 
 
 def parse_codec(value: str) -> str:
@@ -37,6 +57,19 @@ def parse_optional_value(value: str, method: Callable[[str], T]) -> Optional[T]:
   if value is None:
     return None
   return method(value)
+
+
+def parse_float_between_zero_and_one(value: str) -> float:
+  value = parse_float(value)
+  if not 0 <= value <= 1:
+    raise ArgumentTypeError("Value needs to be in interval [0, 1]!")
+  return value
+
+
+def parse_character(value: str) -> float:
+  if len(value) != 1:
+    raise ArgumentTypeError("Value needs to be one character!")
+  return value
 
 
 def get_optional(method: Callable[[str], T]) -> Callable[[str], Optional[T]]:

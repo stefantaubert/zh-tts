@@ -47,7 +47,7 @@ Homepage = "https://github.com/stefantaubert/zh-tts"
 Issues = "https://github.com/stefantaubert/zh-tts/issues"
 
 [project.scripts]
-zh-tts = "zh_tts_cli.cli:run_prod"
+zh-tts = "zh_tts_cli.cli:run"
 
 [tool.setuptools.packages.find]
 where = ["src"]

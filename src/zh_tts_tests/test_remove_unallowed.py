@@ -1,6 +1,4 @@
-
-
-from zh_tts_cli.main import remove_unallowed
+from zh_tts.transcriber import remove_unallowed
 
 
 def test_component():

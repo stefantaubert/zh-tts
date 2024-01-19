@@ -227,7 +227,7 @@ class Transcriber():
 
     if len(oov4) > 0:
       dict5, oov5 = convert_chinese_to_pinyin(
-          oov4, Style.TONE3, True, True, True, 1.0, self._punctuation, False, 1, None, 10_000)
+          oov4, Style.TONE3, True, True, True, 1.0, self._punctuation, False, 1, None, 10_000, silent=True)
       self.dict5_pinyin = deepcopy(dict5)
 
       if len(oov5) > 0:

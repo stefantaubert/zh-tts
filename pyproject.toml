@@ -34,12 +34,13 @@ classifiers = [
 ]
 dependencies = [
   "numpy>=1.18.5",
-  "scipy>=1.8.0",
   "tqdm>=4.63.0",
-  "TextGrid>=1.5",
-  "pandas>=1.4.0",
   "ordered_set>=4.1.0",
-  "matplotlib>=3.5.0",
+  "ffmpy=>0.3.1",
+  "pronunciation-dictionary>=0.0.6",
+  "pronunciation-dictionary-utils>=0.0.5",
+  "dict-from-pypinyin>=0.0.2",
+  "dict-from-dict=>0.0.4",
 ]
 
 [project.urls]

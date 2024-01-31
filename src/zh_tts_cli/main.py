@@ -25,15 +25,15 @@ def init_synthesize_zh_parser(parser: ArgumentParser) -> Callable[[str, str], No
   parser.add_argument("input", type=parse_non_empty_or_whitespace, metavar="INPUT",
                       help="text input")
   parser.add_argument("--skip-normalization", action="store_true", help="skip normalization step")
-  parser.add_argument("--skip-word-separation", action="store_true",
-                      help="skip word separation step")
-  parser.add_argument("--skip-sentence-separation", action="store_true",
-                      help="skip sentence separation step")
+  parser.add_argument("--skip-word-segmentation", action="store_true",
+                      help="skip word segmentation step")
+  parser.add_argument("--skip-sentence-segmentation", action="store_true",
+                      help="skip sentence segmentation step")
   add_common_arguments(parser)
 
   def parse_ns(ns: Namespace):
     synthesize_zh(ns.input, ns.speaker, ns.max_decoder_steps, ns.sigma, ns.denoiser_strength, ns.seed, ns.device,
-                  ns.silence_sentences, ns.silence_paragraphs, ns.loglevel, ns.skip_normalization, ns.skip_word_separation, ns.skip_sentence_separation, ns.output)
+                  ns.silence_sentences, ns.silence_paragraphs, ns.loglevel, ns.skip_normalization, ns.skip_word_segmentation, ns.skip_sentence_segmentation, ns.output)
   return parse_ns
 
 
@@ -83,13 +83,13 @@ def add_device_argument(parser: ArgumentParser) -> None:
                       default=get_default_device(), help="use this device")
 
 
-def synthesize_zh(text: str, speaker: str, max_decoder_steps: int, sigma: float, denoiser_strength: float, seed: int, device: torch.device, silence_sentences: float, silence_paragraphs: float, loglevel: int, skip_normalization: bool, skip_word_separation: bool, skip_sentence_separation: bool, output: Path):
+def synthesize_zh(text: str, speaker: str, max_decoder_steps: int, sigma: float, denoiser_strength: float, seed: int, device: torch.device, silence_sentences: float, silence_paragraphs: float, loglevel: int, skip_normalization: bool, skip_word_segmentation: bool, skip_sentence_segmentation: bool, output: Path):
   if loglevel == 0:
     cli_logger = logging.getLogger("zh_tts_cli")
     cli_logger.setLevel(logging.WARNING)
 
   text_ipa = convert_zh_to_ipa(text, speaker, loglevel, skip_normalization,
-                               skip_word_separation, skip_sentence_separation)
+                               skip_word_segmentation, skip_sentence_segmentation)
   synthesize_ipa_core(text_ipa, speaker, max_decoder_steps, sigma, denoiser_strength,
                       seed, device, silence_sentences, silence_paragraphs, loglevel, output)
 
@@ -106,18 +106,19 @@ def synthesize_ipa(text_ipa: str, speaker: str, max_decoder_steps: int, sigma: f
                       seed, device, silence_sentences, silence_paragraphs, loglevel, output)
 
 
-def convert_zh_to_ipa(text: str, speaker: str, loglevel: int, skip_normalization: bool, skip_word_separation: bool, skip_sentence_separation: bool) -> str:
+def convert_zh_to_ipa(text: str, speaker: str, loglevel: int, skip_normalization: bool, skip_word_segmentation: bool, skip_sentence_segmentation: bool) -> str:
   conf_dir = get_conf_dir()
 
   t = Transcriber(conf_dir)
 
   text_ipa = t.transcribe_to_ipa(text, speaker, skip_normalization,
-                                 skip_word_separation, skip_sentence_separation)
+                                 skip_word_segmentation, skip_sentence_segmentation)
 
   if loglevel >= 1:
     for txt, name in (
       (text, "text"),
       (t.text_normed, "text.normed"),
+      (t.text_segmented, "text.segmented"),
       (t.text_sentenced, "text.sentenced"),
       (t.text_ipa, "text.ipa"),
       (t.text_ipa_readable, "text.ipa.readable"),

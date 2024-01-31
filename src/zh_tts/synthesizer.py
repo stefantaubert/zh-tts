@@ -92,7 +92,8 @@ class Synthesizer():
           mel_var = try_copy_to(mel_var, self._device)
           mel_var = mel_var.unsqueeze(0)
           # logger.debug(f"Synthesizing {sentence_id} step 2/2...")
-          inference_result = self._waveglow.infer(mel_var, sigma, denoiser_strength, seed)
+          inference_result = self._waveglow.infer(
+            mel_var, sigma=sigma, denoiser_strength=denoiser_strength, seed=seed)
           # wav_inferred_denoised_normalized = normalize_wav(inference_result.wav_denoised)
           del mel_var
 

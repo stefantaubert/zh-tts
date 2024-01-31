@@ -114,7 +114,7 @@ class Transcriber():
     self.text_ipa = ""
     self.text_ipa_readable = ""
 
-  def transcribe_to_ipa(self, text: str, speaker: str = DEFAULT_SPEAKER, skip_normalization: bool = False, skip_word_segmentation: bool = False, skip_sentence_separation: bool = False) -> str:
+  def transcribe_to_ipa(self, text: str, speaker: str = DEFAULT_SPEAKER, skip_normalization: bool = False, skip_word_segmentation: bool = False, skip_sentence_segmentation: bool = False) -> str:
     logger = getLogger(__name__)
     self._reset_locals()
 
@@ -142,22 +142,21 @@ class Transcriber():
         text = text_segmented
         logger.debug("Word segmentation was applied.")
 
-    if skip_sentence_separation:
-      logger.debug("Sentence separation was skipped.")
+    if skip_sentence_segmentation:
+      logger.debug("Sentence segmentation was skipped.")
     else:
       logger.info("Separating sentences ...")
       sentences = get_sentences(text)
       text_sentenced = "\n".join(sentences)
       if text == text_sentenced:
-        logger.debug("No sentence separation applied.")
+        logger.debug("No sentence segmentation applied.")
       else:
         self.text_sentenced = text_sentenced
         text = text_sentenced
-        logger.debug("Sentence separation was applied.")
+        logger.debug("Sentence segmentation was applied.")
 
     logger.debug("Extracting vocabulary ...")
-    vocabulary = extract_vocabulary_from_text(
-      text, "\n", " ", False, 1, None, 2_000_000, silent=True)
+    vocabulary = extract_vocabulary_from_text(text, silent=True)
     self.vocabulary = vocabulary
 
     logger.info("Looking up vocabulary ...")
@@ -253,8 +252,10 @@ class Transcriber():
       self.dict1_2_3_4_5 = deepcopy(dict1)
 
     logger.debug("Transcribing to IPA ...")
-    text_ipa = transcribe_text_using_dict(dict1, text, "\n", self._symbol_separator, " ", seed=None, ignore_missing=False,
-                                          n_jobs=1, maxtasksperchild=None, chunksize=2_000_000, silent=True)
+    text_ipa = transcribe_text_using_dict(
+      text, dict1,
+      phoneme_sep=self._symbol_separator, silent=True
+    )
     self.text_ipa = text_ipa
     self.text_ipa_readable = text_ipa.replace(self._symbol_separator, "")
 

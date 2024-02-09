@@ -58,7 +58,8 @@ class Synthesizer():
 
   def synthesize(self, text_ipa: str, speaker: str = DEFAULT_SPEAKER, max_decoder_steps: int = 5000, seed: int = 0, sigma: float = 1.0, denoiser_strength: float = 0.0005, silence_sentences: float = 0.2, silence_paragraphs: float = 1.0, silent: bool = False) -> npt.NDArray[np.float64]:
     if speaker not in AVAILABLE_SPEAKERS:
-      raise ValueError(f"Speaker '{speaker}' is not available!")
+      raise ValueError(
+        f"Speaker '{speaker}' is not available! Available speakers: {', '.join(sorted(AVAILABLE_SPEAKERS))}.")
     resulting_wavs = []
     paragraph_sentences = [
       [

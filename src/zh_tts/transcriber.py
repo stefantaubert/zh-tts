@@ -284,6 +284,7 @@ def normalize_chn_text(text: str) -> str:
   )
 
   result: str = normalize(text)
+  result = remove_urls(result)
   result = remove_unallowed(result)
   result = re.sub(r":", r"：", result)
   result = re.sub(r";", r"；", result)
@@ -301,6 +302,7 @@ def remove_unallowed(text: str) -> str:
     logger = getLogger(__name__)
     logger.debug(f"Removed unallowed characters: {' '.join(sorted(unallowed_chars))}")
   text = unallowed_chars_pattern.sub("", text)
+  text = re.compile(r"\s{2,}").sub(" ", text)
   return text
 
 

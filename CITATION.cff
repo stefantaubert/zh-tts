@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: zh-tts
-abstract: Command-line interface for synthesizing Chinese texts into speech.
+abstract: Command-line interface (CLI) and Python library for synthesizing Chinese texts into speech.
 message: >-
   If you use this software, please cite it using the
   metadata from this file.

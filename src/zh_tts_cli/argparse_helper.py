@@ -3,25 +3,28 @@ import codecs
 from argparse import ArgumentTypeError
 from functools import partial
 from pathlib import Path
-from typing import Callable, List, Optional, TypeVar
+from typing import Callable, Optional, Sequence, TypeVar
 
 import torch
+from ordered_set import OrderedSet
 
 T = TypeVar("T")
 
 
-class ConvertToSetAction(argparse._StoreAction):
-  def __call__(self, parser: argparse.ArgumentParser, namespace: argparse.Namespace, values: Optional[List], option_string: Optional[str] = None):
+class ConvertToOrderedSetAction(argparse._StoreAction):
+  def __call__(self, parser: argparse.ArgumentParser, namespace: argparse.Namespace, values: Optional[Sequence], option_string: Optional[str] = None):
+    # Note: normal set is not possible because set is not a Sequence
+    val: Optional[OrderedSet] = None
     if values is not None:
-      values = set(values)
-    super().__call__(parser, namespace, values, option_string)
+      val = OrderedSet(values)
+    super().__call__(parser, namespace, val, option_string)
 
 
 def parse_device(value: str) -> torch.device:
   try:
     device = torch.device(value)
   except Exception as ex:
-    raise ArgumentTypeError("Device was not found!")
+    raise ArgumentTypeError("Device was not found!") from ex
   return device
 
 
@@ -31,7 +34,7 @@ def get_torch_devices():
   if cuda_count == 1:
     yield "cuda"
   else:
-    for i in cuda_count:
+    for i in range(cuda_count):
       yield f"cuda:{i}"
 
 
@@ -60,13 +63,13 @@ def parse_optional_value(value: str, method: Callable[[str], T]) -> Optional[T]:
 
 
 def parse_float_between_zero_and_one(value: str) -> float:
-  value = parse_float(value)
-  if not 0 <= value <= 1:
+  result = parse_float(value)
+  if not 0 <= result <= 1:
     raise ArgumentTypeError("Value needs to be in interval [0, 1]!")
-  return value
+  return result
 
 
-def parse_character(value: str) -> float:
+def parse_character(value: str) -> str:
   if len(value) != 1:
     raise ArgumentTypeError("Value needs to be one character!")
   return value
@@ -115,59 +118,59 @@ def parse_non_empty_or_whitespace(value: str) -> str:
 
 
 def parse_float(value: str) -> float:
-  value = parse_required(value)
+  value_str = parse_required(value)
   try:
-    value = float(value)
+    result = float(value_str)
   except ValueError as error:
     raise ArgumentTypeError("Value needs to be a decimal number!") from error
-  return value
+  return result
 
 
 def parse_positive_float(value: str) -> float:
-  value = parse_float(value)
-  if not value > 0:
+  result = parse_float(value)
+  if not result > 0:
     raise ArgumentTypeError("Value needs to be greater than zero!")
-  return value
+  return result
 
 
 def parse_non_negative_float(value: str) -> float:
-  value = parse_float(value)
-  if not value >= 0:
+  result = parse_float(value)
+  if not result >= 0:
     raise ArgumentTypeError("Value needs to be greater than or equal to zero!")
-  return value
+  return result
 
 
 def parse_integer(value: str) -> int:
-  value = parse_required(value)
-  if not value.isdigit():
+  value_str = parse_required(value)
+  if not value_str.isdigit():
     raise ArgumentTypeError("Value needs to be an integer!")
-  value = int(value)
-  return value
+  result = int(value_str)
+  return result
 
 
 def parse_positive_integer(value: str) -> int:
-  value = parse_integer(value)
-  if not value > 0:
+  result = parse_integer(value)
+  if not result > 0:
     raise ArgumentTypeError("Value needs to be greater than zero!")
-  return value
+  return result
 
 
 def parse_integer_greater_one(value: str) -> int:
-  value = parse_integer(value)
-  if not value > 1:
+  result = parse_integer(value)
+  if not result > 1:
     raise ArgumentTypeError("Value needs to be greater than one!")
-  return value
+  return result
 
 
-def parse_float_greater_one(value: str) -> int:
-  value = parse_float(value)
-  if not value > 1:
+def parse_float_greater_one(value: str) -> float:
+  result = parse_float(value)
+  if not result > 1:
     raise ArgumentTypeError("Value needs to be greater than one!")
-  return value
+  return result
 
 
 def parse_non_negative_integer(value: str) -> int:
-  value = parse_integer(value)
-  if not value >= 0:
+  result = parse_integer(value)
+  if not result >= 0:
     raise ArgumentTypeError("Value needs to be greater than or equal to zero!")
-  return value
+  return result

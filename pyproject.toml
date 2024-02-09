@@ -3,7 +3,7 @@ name = "zh-tts"
 version = "0.0.1"
 description = "Command-line interface for synthesizing Chinese texts into speech."
 readme = "README.md"
-requires-python = ">=3.8, <3.11"
+requires-python = ">=3.8, <3.12"
 license = { text = "MIT" }
 authors = [{ name = "Stefan Taubert", email = "pypi@stefantaubert.com" }]
 maintainers = [{ name = "Stefan Taubert", email = "pypi@stefantaubert.com" }]
@@ -30,17 +30,22 @@ classifiers = [
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
   "numpy>=1.18.5",
   "tqdm>=4.63.0",
   "ordered_set>=4.1.0",
-  "ffmpy=>0.3.1",
+  "ffmpy>=0.3.1",
   "pronunciation-dictionary>=0.0.6",
   "pronunciation-dictionary-utils>=0.0.5",
+  "dict-from-dict>=0.0.4",
   "dict-from-pypinyin>=0.0.2",
-  "dict-from-dict=>0.0.4",
+  "tacotron-cli>=0.0.5",
+  "waveglow-cli>=0.0.2",
+  "txt-utils>=0.0.3",
+  "pinyin-to-ipa>=0.0.2",
 ]
 
 [project.urls]
@@ -49,6 +54,13 @@ Issues = "https://github.com/stefantaubert/zh-tts/issues"
 
 [project.scripts]
 zh-tts = "zh_tts_cli.cli:run"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+packages = ["zh_tts", "zh_tts_cli"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -93,7 +105,7 @@ known_third_party = [
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{38,39,310}
+envlist = py{38,39,310,311}
 isolated_build = True
 
 [testenv]

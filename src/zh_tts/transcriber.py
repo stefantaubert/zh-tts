@@ -145,7 +145,7 @@ class Transcriber():
     if skip_sentence_segmentation:
       logger.debug("Sentence segmentation was skipped.")
     else:
-      logger.info("Separating sentences ...")
+      logger.info("Segmenting sentences ...")
       sentences = get_sentences(text)
       text_sentenced = "\n".join(sentences)
       if text == text_sentenced:
@@ -206,7 +206,8 @@ class Transcriber():
 
       merge_dictionaries(dict1, dict3, mode="add")
       self.dict1_2_3 = deepcopy(dict1)
-
+    
+    oov4 = OrderedSet()
     if len(oov3) > 0:
       dict4, oov4 = create_dict_from_dict(oov3, self._dicts["all"], trim=self._punctuation, split_on_hyphen=False,
                                           ignore_case=False, n_jobs=1, maxtasksperchild=None, chunksize=10_000, silent=True)
@@ -296,8 +297,9 @@ def remove_unallowed(text: str) -> str:
   unallowed_chars_pattern = re.compile(
     rf"[^{zhon.hanzi.characters}{re.escape(':;,. ､、：；，｡。！．？')}\n]")
   unallowed_chars = set(unallowed_chars_pattern.findall(text))
-  logger = getLogger(__name__)
-  logger.debug(f"Removed unallowed characters: {' '.join(sorted(unallowed_chars))}")
+  if len(unallowed_chars) > 0:
+    logger = getLogger(__name__)
+    logger.debug(f"Removed unallowed characters: {' '.join(sorted(unallowed_chars))}")
   text = unallowed_chars_pattern.sub("", text)
   return text
 
@@ -333,5 +335,6 @@ def get_sentences(text: str) -> Generator[str, None, None]:
 def remove_urls(text: str) -> str:
   pattern = re.compile(
     r"(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])")
-  result = pattern.sub("U R L", text)
+  zh_url = "網址"
+  result = pattern.sub(zh_url, text)
   return result

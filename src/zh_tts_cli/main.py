@@ -20,7 +20,7 @@ from zh_tts_cli.globals import get_conf_dir, get_work_dir
 from zh_tts_cli.logging_configuration import get_file_logger
 
 
-def init_synthesize_zh_parser(parser: ArgumentParser) -> Callable[[str, str], None]:
+def init_synthesize_zh_parser(parser: ArgumentParser) -> Callable[[Namespace], None]:
   parser.description = "Synthesize Chinese texts into speech."
   parser.add_argument("input", type=parse_non_empty_or_whitespace, metavar="INPUT",
                       help="text input")
@@ -37,7 +37,7 @@ def init_synthesize_zh_parser(parser: ArgumentParser) -> Callable[[str, str], No
   return parse_ns
 
 
-def init_synthesize_ipa_parser(parser: ArgumentParser) -> Callable[[str, str], None]:
+def init_synthesize_ipa_parser(parser: ArgumentParser) -> Callable[[Namespace], None]:
   parser.description = "Synthesize Chinese IPA-transcribed texts into speech."
   parser.add_argument("input", type=parse_non_empty_or_whitespace, metavar="INPUT",
                       help="text input")

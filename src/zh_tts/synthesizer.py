@@ -1,8 +1,10 @@
 import logging
 from logging import getLogger
 from pathlib import Path
+from typing import cast
 
 import numpy as np
+import numpy.typing as npt
 import torch
 from tacotron import Synthesizer as TacotronSynthesizer
 from tqdm import tqdm
@@ -54,7 +56,7 @@ class Synthesizer():
     self._sentence_sep = "\n"
     self._symbol_seperator = "|"
 
-  def synthesize(self, text_ipa: str, speaker: str = DEFAULT_SPEAKER, max_decoder_steps: int = 5000, seed: int = 0, sigma: float = 1.0, denoiser_strength: float = 0.0005, silence_sentences: float = 0.2, silence_paragraphs: float = 1.0, silent: bool = False) -> np.ndarray:
+  def synthesize(self, text_ipa: str, speaker: str = DEFAULT_SPEAKER, max_decoder_steps: int = 5000, seed: int = 0, sigma: float = 1.0, denoiser_strength: float = 0.0005, silence_sentences: float = 0.2, silence_paragraphs: float = 1.0, silent: bool = False) -> npt.NDArray[np.float64]:
     if speaker not in AVAILABLE_SPEAKERS:
       raise ValueError(f"Speaker '{speaker}' is not available!")
     resulting_wavs = []
@@ -87,9 +89,9 @@ class Synthesizer():
           #   np.save(logfile, inf_sent_output.mel_outputs_postnet)
           #   logger.debug(f"Tacotron output: {logfile.absolute()}")
 
-          mel_var = torch.FloatTensor(inf_sent_output.mel_outputs_postnet)
+          mel_var_float = torch.FloatTensor(inf_sent_output.mel_outputs_postnet)
           del inf_sent_output
-          mel_var = try_copy_to(mel_var, self._device)
+          mel_var = try_copy_to(mel_var_float, self._device)
           mel_var = mel_var.unsqueeze(0)
           # logger.debug(f"Synthesizing {sentence_id} step 2/2...")
           inference_result = self._waveglow.infer(
@@ -117,6 +119,7 @@ class Synthesizer():
           resulting_wavs.append(pause_samples)
 
     if len(resulting_wavs) > 0:
-      resulting_wav = np.concatenate(tuple(resulting_wavs), axis=-1)
+      resulting_wav = cast(npt.NDArray[np.float64], np.concatenate(tuple(resulting_wavs), axis=-1))
       return resulting_wav
-    return np.zeros((0,))
+    empty_result = cast(npt.NDArray[np.float64], np.zeros((0,), np.float64))
+    return empty_result

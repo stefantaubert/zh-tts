@@ -10,7 +10,7 @@ import wget
 from pronunciation_dictionary import (DeserializationOptions, MultiprocessingOptions,
                                       PronunciationDict, load_dict)
 from tacotron import CheckpointDict
-from tacotron_cli import *
+from tacotron_cli import load_checkpoint
 from tqdm import tqdm
 from waveglow import CheckpointWaveglow, convert_glow_files
 from waveglow_cli import download_pretrained_model
@@ -49,7 +49,9 @@ def get_dicts(conf_dir: Path, silent: bool) -> Dict[str, PronunciationDict]:
       for file in tqdm(os.listdir(dicts_dir_path), desc="Initial loading of speaker dictionaries", disable=silent):
         if file.endswith(".dict"):
           speaker_dict_path = dicts_dir_path / file
-          speaker_name = speaker_name_pattern.match(file).group(1)
+          match = speaker_name_pattern.match(file)
+          assert match is not None
+          speaker_name = match.group(1)
           speaker_dict = load_dict(speaker_dict_path, "UTF-8", DeserializationOptions(
             False, False, False, True), MultiprocessingOptions(1, None, 1_000_000))
           result[speaker_name] = speaker_dict

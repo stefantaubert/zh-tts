@@ -174,7 +174,7 @@ class Transcriber():
     if changed_word_count > 0:
       self.dict1_single = deepcopy(dict1)
 
-    oov2 = OrderedSet()
+    oov2: OrderedSet[str] = OrderedSet()
     if len(oov1) > 0:
       dict2, oov2 = create_dict_from_dict(oov1, self._dicts[speaker], trim=self._punctuation, split_on_hyphen=False,
                                           ignore_case=True, n_jobs=1, maxtasksperchild=None, chunksize=10_000, silent=True)
@@ -191,7 +191,7 @@ class Transcriber():
 
       self.dict1_2 = deepcopy(dict1)
 
-    oov3 = OrderedSet()
+    oov3: OrderedSet[str] = OrderedSet()
     if len(oov2) > 0:
       dict3, oov3 = create_dict_from_dict(oov2, self._dicts["all"], trim={}, split_on_hyphen=False,
                                           ignore_case=False, n_jobs=1, maxtasksperchild=None, chunksize=10_000, silent=True)
@@ -206,8 +206,8 @@ class Transcriber():
 
       merge_dictionaries(dict1, dict3, mode="add")
       self.dict1_2_3 = deepcopy(dict1)
-    
-    oov4 = OrderedSet()
+
+    oov4: OrderedSet[str] = OrderedSet()
     if len(oov3) > 0:
       dict4, oov4 = create_dict_from_dict(oov3, self._dicts["all"], trim=self._punctuation, split_on_hyphen=False,
                                           ignore_case=False, n_jobs=1, maxtasksperchild=None, chunksize=10_000, silent=True)
@@ -283,7 +283,7 @@ def normalize_chn_text(text: str) -> str:
     cc_mode="t2s",
   )
 
-  result = normalize(text)
+  result: str = normalize(text)
   result = remove_unallowed(result)
   result = re.sub(r":", r"：", result)
   result = re.sub(r";", r"；", result)

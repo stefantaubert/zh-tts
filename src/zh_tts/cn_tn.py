@@ -1174,6 +1174,7 @@ if __name__ == '__main__':
   with open(args.ifile, 'r', encoding='utf8') as istream, open(args.ofile, 'w+', encoding='utf8') as ostream:
     if args.format == 'tsv':
       reader = csv.DictReader(istream, delimiter='\t')
+      assert reader.fieldnames is not None
       assert ('TEXT' in reader.fieldnames)
       print('\t'.join(reader.fieldnames), file=ostream)
 

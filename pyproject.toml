@@ -38,6 +38,9 @@ dependencies = [
   "tqdm>=4.63.0",
   "ordered_set>=4.1.0",
   "ffmpy>=0.3.1",
+  "pkuseg>=0.0.25",
+  "zhon>=2.0.2",
+  "opencc>=1.1.7",
   "pronunciation-dictionary>=0.0.6",
   "pronunciation-dictionary-utils>=0.0.5",
   "dict-from-dict>=0.0.4",
@@ -64,17 +67,17 @@ packages = ["zh_tts", "zh_tts_cli"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = [
-  "zh_tts",
-  "zh_tts.*",
-  "zh_tts_cli",
-  "zh_tts_cli.*",
+include = ["zh_tts", "zh_tts.*", "zh_tts_cli", "zh_tts_cli.*"]
+exclude = [
   "zh_tts_tests",
   "zh_tts_tests.*",
   "zh_tts_cli_tests",
   "zh_tts_cli_tests.*",
+  "zh_tts_debug",
+  "zh_tts_debug.*",
+  "zh_tts_cli_debug",
+  "zh_tts_cli_debug.*",
 ]
-exclude = ["zh_tts_debug", "zh_tts_cli_debug", "zh_tts_old"]
 namespaces = true
 
 [tool.pytest.ini_options]
@@ -113,9 +116,9 @@ deps =
   pytest
 commands = 
   pytest
-  zh-tts-cli
-  zh-tts-cli -v
-  zh-tts-cli -h
+  zh-tts
+  zh-tts -v
+  zh-tts -h
 """
 
 [build-system]

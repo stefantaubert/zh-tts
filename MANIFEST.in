@@ -15,7 +15,8 @@ include \
   pyproject.toml \
   setup.cfg \
   examples/synthesize-ipa.wav \
-  examples/synthesize.wav
+  examples/synthesize.wav \
+  img/eval.png
 
 global-exclude \
   *~ \

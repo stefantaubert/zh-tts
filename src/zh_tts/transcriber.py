@@ -6,7 +6,7 @@ from logging import getLogger
 from pathlib import Path
 from typing import Generator, Optional
 
-import pkuseg
+import spacy_pkuseg
 import zhon
 from dict_from_dict import create_dict_from_dict
 from dict_from_pypinyin import convert_chinese_to_pinyin
@@ -307,7 +307,8 @@ def remove_unallowed(text: str) -> str:
 
 
 def segment_words(text: str) -> str:
-  seg = pkuseg.pkuseg()
+  # seg = pkuseg.pkuseg()
+  seg = spacy_pkuseg.pkuseg()
   lines = text.split("\n")
   norm_lines = []
   whitespace_pattern = re.compile(r"\s+")

@@ -1,4 +1,5 @@
 import argparse
+import logging
 import platform
 import shutil
 import sys
@@ -43,7 +44,7 @@ def get_parsers() -> Generator[Tuple[str, str, Callable], None, None]:
 def _init_parser():
   main_parser = ArgumentParser(
     formatter_class=formatter,
-    description="Command-line interface for synthesizing English texts into speech.",
+    description="Command-line interface for synthesizing Chinese texts into speech.",
   )
   main_parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
   subparsers = main_parser.add_subparsers(help="description")
@@ -59,7 +60,7 @@ def _init_parser():
 
     logging_group = method_parser.add_argument_group("logging arguments")
     # logging_group.add_argument("--work-directory", type=parse_path, metavar="DIRECTORY",
-    #                            help="path to write the log", default=Path(gettempdir()) / "zh-tts")
+    #                            help="path to write the log", default=Path(gettempdir()) / "en-tts")
     logging_group.add_argument("--loglevel", metavar="LEVEL", type=int,
                                choices=[0, 1, 2], help="log-level", default=1)
     logging_group.add_argument("--debug", action="store_true",
@@ -88,12 +89,11 @@ def ensure_conf_dir_exists():
 
 
 def parse_args(args: List[str]) -> None:
-  configure_root_logger()
-  root_logger = getLogger()
-
   local_debugging = debug_file_exists()
-  if local_debugging:
-    root_logger.debug(f"Received arguments: {str(args)}")
+
+  configure_root_logger(local_debugging)
+  root_logger = getLogger()
+  root_logger.debug(f"Received arguments: {str(args)}")
 
   parser = _init_parser()
 
@@ -104,14 +104,14 @@ def parse_args(args: List[str]) -> None:
     # -v -> 0; invalid arg -> 2
     sys.exit(error_code)
 
-  if local_debugging:
-    root_logger.debug(f"Parsed arguments: {str(ns)}")
+  root_logger.debug(f"Parsed arguments: {str(ns)}")
 
   if not hasattr(ns, INVOKE_HANDLER_VAR):
     parser.print_help()
     sys.exit(0)
 
   debug = cast(bool, ns.debug)
+  root_logger.setLevel(logging.DEBUG if debug else logging.INFO)
 
   invoke_handler: Callable[..., bool] = getattr(ns, INVOKE_HANDLER_VAR)
   delattr(ns, INVOKE_HANDLER_VAR)
@@ -132,7 +132,7 @@ def parse_args(args: List[str]) -> None:
     root_logger.exception("Logging to file is not possible. Exiting.", exc_info=ex, stack_info=True)
     sys.exit(1)
 
-  configure_cli_logger()
+  configure_cli_logger(debug)
 
   flogger = get_file_logger()
 

@@ -63,17 +63,19 @@ def get_cli_logger() -> Logger:
 
 
 def get_file_logger() -> Logger:
-  flogger = getLogger("zh_tts_cli_file")
+  flogger = getLogger("file.zh_tts_cli")
   if flogger.propagate:
     flogger.propagate = False
   return flogger
 
 
-def configure_cli_logger() -> None:
+def configure_cli_logger(debug: bool = False) -> None:
   cli_logger = getLogger("zh_tts_cli")
   cli_logger.handlers.clear()
   assert len(cli_logger.handlers) == 0
-  add_console_out(cli_logger)
+  console_handler = add_console_out(cli_logger)
+  # console_handler.setLevel(logging.DEBUG if debug else logging.INFO)
+  cli_logger.setLevel(logging.DEBUG if debug else logging.INFO)
 
   core_logger = getLogger("zh_tts")
   core_logger.parent = cli_logger
@@ -82,11 +84,11 @@ def configure_cli_logger() -> None:
   cli_logger.parent = file_logger
 
 
-def configure_root_logger() -> None:
+def configure_root_logger(debug: bool = False) -> None:
   # productive = False
   # loglevel = logging.INFO if productive else logging.DEBUG
   root_logger = getLogger()
-  root_logger.setLevel(logging.DEBUG)
+  root_logger.setLevel(logging.DEBUG if debug else logging.INFO)
   root_logger.manager.disable = logging.NOTSET
   if len(root_logger.handlers) > 0:
     console = root_logger.handlers[0]
@@ -94,7 +96,7 @@ def configure_root_logger() -> None:
   else:
     console = add_console_out(root_logger)
 
-  console.setLevel(logging.DEBUG)
+  # console.setLevel(logging.DEBUG if debug else logging.INFO)
 
 
 def configure_file_logger(path: Path, debug: bool = False, buffer_capacity: int = 1):
@@ -106,7 +108,7 @@ def configure_file_logger(path: Path, debug: bool = False, buffer_capacity: int 
   path.write_text("")
   fh = logging.FileHandler(path)
   set_logfile_formatter(fh)
-  level = logging.DEBUG if debug else logging.INFO
-  fh.setLevel(level)
+  # fh.setLevel(logging.DEBUG if debug else logging.INFO)
+  flogger.setLevel(logging.DEBUG if debug else logging.INFO)
   mh = MemoryHandler(buffer_capacity, logging.ERROR, fh, True)
   flogger.addHandler(mh)

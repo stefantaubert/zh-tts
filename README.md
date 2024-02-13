@@ -2,6 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/zh-tts.svg)](https://pypi.python.org/pypi/zh-tts)
 ![PyPI](https://img.shields.io/pypi/pyversions/zh-tts.svg)
+[![pytorch](https://img.shields.io/badge/PyTorch_2.0+-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/pytorch-2.0/)
 [![MIT](https://img.shields.io/github/license/stefantaubert/zh-tts.svg)](https://github.com/stefantaubert/zh-tts/blob/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/wheel/zh-tts.svg)](https://pypi.python.org/pypi/zh-tts/#files)
 ![PyPI](https://img.shields.io/pypi/implementation/zh-tts.svg)

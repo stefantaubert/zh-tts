@@ -1,7 +1,7 @@
-from zh_tts.helper import get_default_device
-from zh_tts_cli.cli import reset_work_dir
-from zh_tts_cli.globals import get_work_dir
-from zh_tts_cli.main import synthesize_ipa
+from zho_tts.helper import get_default_device
+from zho_tts_cli.cli import reset_work_dir
+from zho_tts_cli.globals import get_work_dir
+from zho_tts_cli.main import synthesize_ipa
 
 
 def test_component():

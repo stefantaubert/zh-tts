@@ -1,5 +1,5 @@
 [project]
-name = "zh-tts"
+name = "zho-tts"
 version = "0.0.1"
 description = "Command-line interface and Python library for synthesizing Chinese texts into speech."
 readme = "README.md"
@@ -57,34 +57,34 @@ Homepage = "https://github.com/stefantaubert/zh-tts"
 Issues = "https://github.com/stefantaubert/zh-tts/issues"
 
 [project.scripts]
-zh-tts = "zh_tts_cli.cli:run"
+zho-tts = "zho_tts_cli.cli:run"
 
 [tool.mypy]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
-packages = ["zh_tts", "zh_tts_cli"]
+packages = ["zho_tts", "zho_tts_cli"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["zh_tts", "zh_tts.*", "zh_tts_cli", "zh_tts_cli.*"]
+include = ["zho_tts", "zho_tts.*", "zho_tts_cli", "zho_tts_cli.*"]
 exclude = [
-  "zh_tts_tests",
-  "zh_tts_tests.*",
-  "zh_tts_cli_tests",
-  "zh_tts_cli_tests.*",
-  "zh_tts_debug",
-  "zh_tts_debug.*",
-  "zh_tts_cli_debug",
-  "zh_tts_cli_debug.*",
+  "zho_tts_tests",
+  "zho_tts_tests.*",
+  "zho_tts_cli_tests",
+  "zho_tts_cli_tests.*",
+  "zho_tts_debug",
+  "zho_tts_debug.*",
+  "zho_tts_cli_debug",
+  "zho_tts_cli_debug.*",
 ]
 namespaces = true
 
 [tool.pytest.ini_options]
 log_cli = true
 log_level = "DEBUG"
-testpaths = ["src/zh_tts_tests", "src/zh_tts_cli_tests"]
+testpaths = ["src/zho_tts_tests", "src/zho_tts_cli_tests"]
 
 [tool.autopep8]
 indent-size = 2
@@ -94,7 +94,7 @@ max_line_length = 100
 [tool.isort]
 line_length = 100
 indent = 2
-known_first_party = ["zh_tts", "zh_tts_cli"]
+known_first_party = ["zho_tts", "zho_tts_cli"]
 known_third_party = [
   "scipy",
   "numpy",
@@ -117,9 +117,9 @@ deps =
   pytest
 commands = 
   pytest
-  zh-tts
-  zh-tts -v
-  zh-tts -h
+  zho-tts
+  zho-tts -v
+  zho-tts -h
 """
 
 [build-system]

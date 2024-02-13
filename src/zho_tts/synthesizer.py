@@ -11,9 +11,9 @@ from tqdm import tqdm
 from waveglow import Synthesizer as WaveglowSynthesizer
 from waveglow import try_copy_to
 
-from zh_tts.globals import DEFAULT_CONF_DIR, DEFAULT_SPEAKER
-from zh_tts.helper import get_default_device, get_sample_count
-from zh_tts.resources import get_taco_model, get_wg_model
+from zho_tts.globals import DEFAULT_CONF_DIR, DEFAULT_SPEAKER
+from zho_tts.helper import get_default_device, get_sample_count
+from zho_tts.resources import get_taco_model, get_wg_model
 
 AVAILABLE_SPEAKERS = {
   "A9", "A33", "A35", "B21", "B34", "A8", "B8", "C8", "D8", "A11", "A12", "A13", "A14", "A19", "A2", "A22", "A23", "A32", "A34", "A36", "A4", "A5", "A6", "A7", "B11", "B12", "B15", "B2", "B22", "B31", "B32", "B33", "B4", "B6", "B7", "C12", "C13", "C14", "C17", "C18", "C19", "C2", "C20", "C21", "C22", "C23", "C31", "C32", "C4", "C6", "C7", "D11", "D12", "D13", "D21", "D31", "D32", "D4", "D6", "D7"

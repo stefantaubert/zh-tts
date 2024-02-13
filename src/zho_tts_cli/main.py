@@ -9,15 +9,15 @@ from ordered_set import OrderedSet
 from pronunciation_dictionary import PronunciationDict, SerializationOptions, save_dict
 from tacotron_cli import *
 
-from zh_tts import *
-from zh_tts.synthesizer import AVAILABLE_SPEAKERS
-from zh_tts_cli.argparse_helper import (get_torch_devices, parse_device,
-                                        parse_float_between_zero_and_one,
-                                        parse_non_empty_or_whitespace, parse_non_negative_float,
-                                        parse_non_negative_integer, parse_path,
-                                        parse_positive_integer)
-from zh_tts_cli.globals import get_conf_dir, get_work_dir
-from zh_tts_cli.logging_configuration import get_file_logger
+from zho_tts import *
+from zho_tts.synthesizer import AVAILABLE_SPEAKERS
+from zho_tts_cli.argparse_helper import (get_torch_devices, parse_device,
+                                         parse_float_between_zero_and_one,
+                                         parse_non_empty_or_whitespace, parse_non_negative_float,
+                                         parse_non_negative_integer, parse_path,
+                                         parse_positive_integer)
+from zho_tts_cli.globals import get_conf_dir, get_work_dir
+from zho_tts_cli.logging_configuration import get_file_logger
 
 
 def init_synthesize_zh_parser(parser: ArgumentParser) -> Callable[[Namespace], None]:
@@ -85,7 +85,7 @@ def add_device_argument(parser: ArgumentParser) -> None:
 
 def synthesize_zh(text: str, speaker: str, max_decoder_steps: int, sigma: float, denoiser_strength: float, seed: int, device: torch.device, silence_sentences: float, silence_paragraphs: float, loglevel: int, skip_normalization: bool, skip_word_segmentation: bool, skip_sentence_segmentation: bool, output: Path):
   if loglevel == 0:
-    cli_logger = logging.getLogger("zh_tts_cli")
+    cli_logger = logging.getLogger("zho_tts_cli")
     cli_logger.setLevel(logging.WARNING)
 
   text_ipa = convert_zh_to_ipa(text, speaker, loglevel, skip_normalization,
@@ -96,7 +96,7 @@ def synthesize_zh(text: str, speaker: str, max_decoder_steps: int, sigma: float,
 
 def synthesize_ipa(text_ipa: str, speaker: str, max_decoder_steps: int, sigma: float, denoiser_strength: float, seed: int, device: torch.device, silence_sentences: float, silence_paragraphs: float, loglevel: int, output: Path):
   if loglevel == 0:
-    cli_logger = logging.getLogger("zh_tts_cli")
+    cli_logger = logging.getLogger("zho_tts_cli")
     cli_logger.setLevel(logging.WARNING)
 
   if loglevel >= 1:

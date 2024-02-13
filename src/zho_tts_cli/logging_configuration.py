@@ -58,26 +58,26 @@ def set_logfile_formatter(handler: Handler) -> None:
 
 
 def get_cli_logger() -> Logger:
-  logger = getLogger("zh_tts_cli")
+  logger = getLogger("zho_tts_cli")
   return logger
 
 
 def get_file_logger() -> Logger:
-  flogger = getLogger("file.zh_tts_cli")
+  flogger = getLogger("file.zho_tts_cli")
   if flogger.propagate:
     flogger.propagate = False
   return flogger
 
 
 def configure_cli_logger(debug: bool = False) -> None:
-  cli_logger = getLogger("zh_tts_cli")
+  cli_logger = getLogger("zho_tts_cli")
   cli_logger.handlers.clear()
   assert len(cli_logger.handlers) == 0
   console_handler = add_console_out(cli_logger)
   # console_handler.setLevel(logging.DEBUG if debug else logging.INFO)
   cli_logger.setLevel(logging.DEBUG if debug else logging.INFO)
 
-  core_logger = getLogger("zh_tts")
+  core_logger = getLogger("zho_tts")
   core_logger.parent = cli_logger
 
   file_logger = get_file_logger()

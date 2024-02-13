@@ -18,9 +18,9 @@ from pronunciation_dictionary_utils import (map_symbols_dict, merge_dictionaries
 from pypinyin import Style
 from txt_utils import extract_vocabulary_from_text, replace_text, transcribe_text_using_dict
 
-from zh_tts.cn_tn import TextNorm
-from zh_tts.globals import DEFAULT_CONF_DIR, DEFAULT_SPEAKER
-from zh_tts.resources import get_dicts
+from zho_tts.cn_tn import TextNorm
+from zho_tts.globals import DEFAULT_CONF_DIR, DEFAULT_SPEAKER
+from zho_tts.resources import get_dicts
 
 
 class Transcriber():

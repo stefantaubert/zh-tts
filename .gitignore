@@ -109,7 +109,7 @@ venv.bak/
 .vscode
 
 # custom
-# zh_tts/*.tests.py
+# zho_tts/*.tests.py
 output
 scripts
 *_debug/

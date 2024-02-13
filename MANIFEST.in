@@ -1,5 +1,5 @@
-graft src/zh_tts_tests/
-graft src/zh_tts_cli_tests/
+graft src/zho_tts_tests/
+graft src/zho_tts_cli_tests/
 
 include \
   pylintrc \

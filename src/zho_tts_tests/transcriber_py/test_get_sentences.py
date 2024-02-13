@@ -1,4 +1,4 @@
-from zh_tts.transcriber import get_sentences
+from zho_tts.transcriber import get_sentences
 
 
 def test_component():

@@ -1,5 +1,5 @@
-from zh_tts.transcriber import Transcriber
-from zh_tts_tests.helper import get_tests_conf_dir
+from zho_tts.transcriber import Transcriber
+from zho_tts_tests.helper import get_tests_conf_dir
 
 
 def test_component():

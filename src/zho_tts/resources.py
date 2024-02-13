@@ -15,7 +15,7 @@ from tqdm import tqdm
 from waveglow import CheckpointWaveglow, convert_glow_files
 from waveglow_cli import download_pretrained_model
 
-from zh_tts.io import load_obj, save_obj
+from zho_tts.io import load_obj, save_obj
 
 SPEAKER_DICT_ZIP = "https://zenodo.org/records/7528596/files/pronunciations-narrow-speakers.zip"
 SPEAKERS_DICT = "https://zenodo.org/records/7528596/files/pronunciations-narrow.dict"

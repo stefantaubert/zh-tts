@@ -3,10 +3,10 @@ from logging import getLogger
 import numpy as np
 from pytest import raises
 
-from zh_tts.helper import normalize_audio
-from zh_tts.io import save_audio
-from zh_tts.synthesizer import Synthesizer
-from zh_tts_tests.helper import get_tests_conf_dir
+from zho_tts.helper import normalize_audio
+from zho_tts.io import save_audio
+from zho_tts.synthesizer import Synthesizer
+from zho_tts_tests.helper import get_tests_conf_dir
 
 
 def test_component():

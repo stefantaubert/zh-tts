@@ -12,12 +12,12 @@ from tempfile import gettempdir
 from time import perf_counter
 from typing import Callable, Generator, List, Tuple, cast
 
-from zh_tts_cli.globals import get_conf_dir, get_work_dir
-from zh_tts_cli.logging_configuration import (configure_cli_logger, configure_file_logger,
+from zho_tts_cli.globals import get_conf_dir, get_work_dir
+from zho_tts_cli.logging_configuration import (configure_cli_logger, configure_file_logger,
                                               configure_root_logger, get_file_logger)
-from zh_tts_cli.main import init_synthesize_ipa_parser, init_synthesize_zh_parser
+from zho_tts_cli.main import init_synthesize_ipa_parser, init_synthesize_zh_parser
 
-__APP_NAME = "zh-tts"
+__APP_NAME = "zho-tts"
 
 __version__ = version(__APP_NAME)
 

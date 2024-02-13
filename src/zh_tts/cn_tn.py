@@ -15,6 +15,8 @@ import re
 import string
 import sys
 
+from opencc import OpenCC
+
 # ================================================================================ #
 #                                    basic constant
 # ================================================================================ #
@@ -1089,7 +1091,6 @@ class TextNorm:
 
     self.cc = None
     if cc_mode:
-      from opencc import OpenCC  # Open Chinese Convert: pip install opencc
       self.cc = OpenCC(cc_mode)
 
   def __call__(self, text):

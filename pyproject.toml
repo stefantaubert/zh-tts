@@ -1,7 +1,7 @@
 [project]
 name = "zh-tts"
 version = "0.0.1"
-description = "Command-line interface for synthesizing Chinese texts into speech."
+description = "Command-line interface and Python library for synthesizing Chinese texts into speech."
 readme = "README.md"
 requires-python = ">=3.8, <3.12"
 license = { text = "MIT" }
@@ -40,7 +40,7 @@ dependencies = [
   "ffmpy>=0.3.1",
   "spacy-pkuseg>=0.0.33",
   "zhon>=2.0.2",
-  "opencc>=1.1.7",
+  "opencc-py>=1.1.0",
   "torch>=2.0.0",
   "pronunciation-dictionary>=0.0.6",
   "pronunciation-dictionary-utils>=0.0.5",

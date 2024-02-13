@@ -1,5 +1,6 @@
 from logging import getLogger
 
+import numpy as np
 from pytest import raises
 
 from zh_tts.helper import normalize_audio
@@ -21,6 +22,31 @@ def test_component():
   logger = getLogger(__name__)
   logger.info(conf_dir / "output_norm.wav")
   assert len(audio) > 0
+
+  np.testing.assert_array_almost_equal(
+    audio[:10],
+    np.array(
+      [
+        0.00367952, 0.0025904, 0.0078691, 0.0063989, 0.00292484,
+        -0.00120042, -0.00696282, -0.00311462, -0.00370606, -0.0009133
+      ],
+      dtype=np.float64,
+    )
+  )
+  assert audio.dtype == np.float64
+  assert audio.shape == (89402,)
+
+
+def test_empty():
+  conf_dir = get_tests_conf_dir()
+
+  s = Synthesizer(conf_dir)
+
+  text = ''
+
+  audio = s.synthesize(text)
+  assert audio.dtype == np.float64
+  assert audio.shape == (0,)
 
 
 def test_invalid_speaker_raise_value_error():

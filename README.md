@@ -91,7 +91,7 @@ Tones and duration markers can be combined, e.g., ə˧˥ː
 
 ### Speakers
 
-![Objective Evaluation](./img/eval.png)
+![Objective Evaluation](https://github.com/stefantaubert/zh-tts/raw/master/img/eval.png)
 
 ## Citation
 

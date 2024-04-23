@@ -1,5 +1,10 @@
+from importlib.metadata import version
 from pathlib import Path
 from tempfile import gettempdir
+
+APP_NAME = "zho-tts"
+
+APP_VERSION = version(APP_NAME)
 
 
 def get_conf_dir() -> Path:
@@ -10,3 +15,7 @@ def get_conf_dir() -> Path:
 def get_work_dir() -> Path:
   work_dir = Path(gettempdir()) / "zho-tts"
   return work_dir
+
+
+def get_log_path() -> Path:
+  return Path(gettempdir()) / "zho-tts.log"

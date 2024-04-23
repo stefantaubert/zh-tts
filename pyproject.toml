@@ -50,6 +50,8 @@ dependencies = [
   "waveglow-cli>=0.0.2",
   "txt-utils>=0.0.3",
   "pinyin-to-ipa>=0.0.2",
+  "gradio[oauth]>=4.26.0",
+  "uvicorn>=0.14.0",
 ]
 
 [project.urls]
@@ -57,23 +59,33 @@ Homepage = "https://github.com/stefantaubert/zh-tts"
 Issues = "https://github.com/stefantaubert/zh-tts/issues"
 
 [project.scripts]
-zho-tts = "zho_tts_cli.cli:run"
+zho-tts-cli = "zho_tts_cli.cli:run"
+zho-tts-web = "zho_tts_gr.app:run"
 
 [tool.mypy]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
-packages = ["zho_tts", "zho_tts_cli"]
+packages = ["zho_tts", "zho_tts_cli", "zho_tts_app", "zho_tts_gr"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["zho_tts", "zho_tts.*", "zho_tts_cli", "zho_tts_cli.*"]
+include = [
+  "zho_tts",
+  "zho_tts.*",
+  "zho_tts_cli",
+  "zho_tts_cli.*",
+  "zho_tts_app",
+  "zho_tts_app.*",
+  "zho_tts_gr",
+  "zho_tts_gr.*",
+]
 exclude = [
   "zho_tts_tests",
   "zho_tts_tests.*",
-  "zho_tts_cli_tests",
-  "zho_tts_cli_tests.*",
+  "zho_tts_app_tests",
+  "zho_tts_app_tests.*",
   "zho_tts_debug",
   "zho_tts_debug.*",
   "zho_tts_cli_debug",
@@ -84,7 +96,7 @@ namespaces = true
 [tool.pytest.ini_options]
 log_cli = true
 log_level = "DEBUG"
-testpaths = ["src/zho_tts_tests", "src/zho_tts_cli_tests"]
+testpaths = ["src/zho_tts_tests", "src/zho_tts_app_tests"]
 
 [tool.autopep8]
 indent-size = 2
@@ -94,7 +106,7 @@ max_line_length = 100
 [tool.isort]
 line_length = 100
 indent = 2
-known_first_party = ["zho_tts", "zho_tts_cli"]
+known_first_party = ["zho_tts", "zho_tts_cli", "zho_tts_gr", "zh_tts_app"]
 known_third_party = [
   "scipy",
   "numpy",
@@ -117,9 +129,9 @@ deps =
   pytest
 commands = 
   pytest
-  zho-tts
-  zho-tts -v
-  zho-tts -h
+  zho-tts-cli
+  zho-tts-cli -v
+  zho-tts-cli -h
 """
 
 [build-system]

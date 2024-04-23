@@ -1,6 +1,6 @@
 import logging
 
-from en_tts_app.logging_configuration import initialize_logging
+from zho_tts_app.logging_configuration import initialize_logging
 
 
 def pytest_configure():

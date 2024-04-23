@@ -35,6 +35,8 @@ tacotron-cli = ">=0.0.5"
 waveglow-cli = ">=0.0.2"
 txt-utils = ">=0.0.3"
 pinyin-to-ipa = ">=0.0.2"
+gradio = {extras = ["oauth"], version = ">=4.26.0"}
+uvicorn = ">=0.14.0"
 
 [requires]
 python_version = "3.11"

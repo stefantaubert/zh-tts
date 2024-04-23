@@ -317,7 +317,7 @@ def build_interface(cache_examples: bool = False) -> gr.Blocks:
 
           ### Citation
 
-          Taubert, S. (2024). zho-tts (Version {APP_VERSION}) [Computer software]. https://doi.org/10.5281/zenodo.10512789
+          Taubert, S. (2024). zho-tts (Version {APP_VERSION}) [Computer software]. https://doi.org/10.5281/zenodo.11048515
 
           ### Acknowledgments
 

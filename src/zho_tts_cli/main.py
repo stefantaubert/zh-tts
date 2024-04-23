@@ -1,10 +1,8 @@
 from argparse import ArgumentParser, Namespace
 from typing import Callable
 
-from zho_tts.helper import get_default_device
-from zho_tts.synthesizer import AVAILABLE_SPEAKERS
+from zho_tts import AVAILABLE_SPEAKERS, get_default_device
 from zho_tts_app import get_work_dir, load_models_to_cache, synthesize_ipa, synthesize_zho
-from zho_tts_app.main import synthesize_zho
 from zho_tts_cli.argparse_helper import (get_torch_devices, parse_device,
                                          parse_float_between_zero_and_one,
                                          parse_non_empty_or_whitespace, parse_non_negative_float,

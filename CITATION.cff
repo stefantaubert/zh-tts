@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: zho-tts
-abstract: Command-line interface and Python library for synthesizing Chinese texts into speech.
+abstract: Web app, command-line interface and Python library for synthesizing Chinese texts into speech.
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -12,8 +12,8 @@ authors:
     affiliation: Chemnitz University of Technology
     orcid: 'https://orcid.org/0000-0002-4932-2874'
     website: 'https://stefantaubert.com/'
-version: 0.0.1
-date-released: 2024-02-13
+version: 0.0.2
+date-released: 2024-04-23
 license: MIT
 url: https://github.com/stefantaubert/zh-tts
 doi: 10.5281/zenodo.10512789

@@ -1,7 +1,7 @@
 [project]
 name = "zho-tts"
-version = "0.0.1"
-description = "Command-line interface and Python library for synthesizing Chinese texts into speech."
+version = "0.0.2"
+description = "Web app, command-line interface and Python library for synthesizing Chinese texts into speech."
 readme = "README.md"
 requires-python = ">=3.8, <3.12"
 license = { text = "MIT" }

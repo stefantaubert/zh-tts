@@ -1,5 +1,5 @@
 graft src/zho_tts_tests/
-graft src/zho_tts_cli_tests/
+graft src/zho_tts_app_tests/
 
 include \
   pylintrc \
@@ -16,7 +16,8 @@ include \
   setup.cfg \
   examples/synthesize-ipa.wav \
   examples/synthesize.wav \
-  img/eval.png
+  img/eval.png \
+  img/hf.png
 
 global-exclude \
   *~ \

@@ -105,7 +105,7 @@ def synthesize_zho(text: str, cache: Dict, *, speaker: str = "D6", max_decoder_s
 
   output_path = synthesize_ipa_core(
     text_ipa, cache[CACHE_SYNTHESIZER], custom_output,
-    max_decoder_steps=max_decoder_steps, sigma=sigma, denoiser_strength=denoiser_strength,
+    speaker=speaker, max_decoder_steps=max_decoder_steps, sigma=sigma, denoiser_strength=denoiser_strength,
     seed=seed, silence_sentences=silence_sentences, silence_paragraphs=silence_paragraphs, loglevel=loglevel
   )
 
@@ -159,7 +159,7 @@ def convert_zho_to_ipa(text: str, transcriber: Transcriber, *, speaker: str = "D
   return text_ipa
 
 
-def synthesize_ipa_core(text_ipa: str, synthesizer: Synthesizer, output: Path, *, speaker: str = "D6", max_decoder_steps: int = 5000, sigma: float = 1.0, denoiser_strength: float = 0.0005, seed: int = 0, silence_sentences: float = 0.4, silence_paragraphs: float = 1.0, loglevel: int = 1) -> Path:
+def synthesize_ipa_core(text_ipa: str, synthesizer: Synthesizer, output: Path, *, speaker: str = "D6", max_decoder_steps: int = 5000, sigma: float = 1.0, denoiser_strength: float = 0.0005, seed: int = 0, silence_sentences: float = 0.2, silence_paragraphs: float = 1.0, loglevel: int = 1) -> Path:
   logger = logging.getLogger(__name__)
   work_dir = get_work_dir()
 

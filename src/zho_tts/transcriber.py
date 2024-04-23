@@ -159,7 +159,7 @@ class Transcriber():
     vocabulary = extract_vocabulary_from_text(text, silent=True)
     self.vocabulary = vocabulary
 
-    logger.info("Looking up vocabulary ...")
+    logger.info(f"Looking up vocabulary for speaker '{speaker}' ...")
     dict1, oov1 = create_dict_from_dict(vocabulary, self._dicts[speaker], trim={
     }, split_on_hyphen=False, ignore_case=False, n_jobs=1, maxtasksperchild=None, chunksize=10_000, silent=True)
 

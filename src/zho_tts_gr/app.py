@@ -256,7 +256,15 @@ def build_interface(cache_examples: bool = False) -> gr.Blocks:
           examples=[
             [
               "长江 航务 管理局 和 长江 轮船 总公司 最近 决定 安排 一百三十三 艘 客轮 迎接 长江 干线 春运。",
-              "♀ D06", 5000, 1.0, 0.0005, 0, 0.2, 1.0, False, False, False
+              "♀ D06", 5000, 1.0, 0.0005, 0, 0.2, 1.0, False, True, True
+            ],
+            [
+              "他们走到四马路一家茶食铺里阿九说要熏鱼他给买了又给转儿买了饼干。",
+              "♀ B15", 5000, 1.0, 0.0005, 0, 0.2, 1.0, False, False, True
+            ],
+            [
+              "有 一次， 北風 和 太陽 正在 爭論 誰 比較 有 本事。\n他們 正好 看 到 有 個人 走過， 那 個人 穿著 一 件 斗篷。\n他們 就 說了， 誰 可以 讓 那 個人 脫 掉 那 件 斗篷， 就算 誰 比較 有 本事。\n於是， 北風 就 拼命 地 吹。\n怎 料， 他 吹 得 越 厲害， 那 個人 就 越 是 用 斗篷 包緊 自己。\n最後， 北風 沒 辦法， 只好 放棄。\n接著， 太陽 出來 曬了 一下， 那 個人 就 立刻 把 斗篷 脫 掉了。\n於是， 北風 只好 認輸了。",
+              "♂ A08", 5000, 1.0, 0.0005, 0, 0.2, 1.0, False, True, True
             ],
           ],
           fn=fn,
@@ -358,6 +366,7 @@ def build_interface(cache_examples: bool = False) -> gr.Blocks:
 def synt(text: str, speaker: str, max_decoder_steps: int, sigma: float, denoiser_strength: float, seed: int, silence_sentences: float, silence_paragraphs: float, skip_normalization: bool, skip_word_segmentation: bool, skip_sentence_separation: bool, cache: Dict) -> Tuple[Tuple[int, npt.NDArray], str, str, Path]:
   reset_log()
   speaker_name = speakers[speaker]
+
   result_path = synthesize_zho(
     text, cache,
     speaker=speaker_name,
@@ -398,18 +407,5 @@ def create_zip_file_of_output() -> Path:
   return resulting_zip
 
 
-
-def greet(name, intensity):
-    return "Hello, " + name + "!" * int(intensity)
-
-demo = gr.Interface(
-    fn=greet,
-    inputs=["text", "slider"],
-    outputs=["text"],
-)
-
 if __name__ == "__main__":
-  #run()
-    
-  demo.launch()
-
+  run()

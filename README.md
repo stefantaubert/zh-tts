@@ -10,7 +10,7 @@
 [![PyPI](https://img.shields.io/github/commits-since/stefantaubert/zh-tts/latest/master.svg)](https://github.com/stefantaubert/zh-tts/compare/v0.0.1...master)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10512789.svg)](https://doi.org/10.5281/zenodo.10512789)
 
-Command-line interface and Python library for synthesizing Chinese texts into speech.
+Web app, command-line interface and Python library for synthesizing Chinese texts into speech.
 
 ## Installation
 
@@ -20,7 +20,7 @@ pip install zho-tts --user
 
 ## Usage as web app
 
-Visit [🤗 Hugging Face](https://huggingface.co/spaces/stefantaubert/en-tts) for a live demo.
+Visit [🤗 Hugging Face](https://huggingface.co/spaces/stefantaubert/zh-tts) for a live demo.
 
 <a href="https://huggingface.co/spaces/stefantaubert/zho-tts">
 <img src="https://github.com/stefantaubert/zh-tts/raw/master/img/hf.png" alt="Screenshot Hugging Face" style="max-width: 600px; width: 100%"/>

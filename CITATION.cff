@@ -13,7 +13,7 @@ authors:
     orcid: 'https://orcid.org/0000-0002-4932-2874'
     website: 'https://stefantaubert.com/'
 version: 0.0.2
-date-released: 2024-04-23
+date-released: 2024-04-24
 license: MIT
 url: https://github.com/stefantaubert/zh-tts
 doi: 10.5281/zenodo.11048515
